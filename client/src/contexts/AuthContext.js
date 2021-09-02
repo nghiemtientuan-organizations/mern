@@ -30,7 +30,7 @@ const AuthContextProvider = ({ children }) => {
           type: 'SET_AUTH',
           payload: {
             isAuthenticated: true,
-            user: response.data.user,
+            user: response.data.result,
           },
         });
       } else {
@@ -89,8 +89,21 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
+  // Logout
+  const logout = () => {
+    localStorage.removeItem(LOCAL_STORAGE_NAME_TOKEN);
+    setAuthToken(null);
+    dispatch({
+      type: 'SET_AUTH',
+      payload: {
+        isAuthenticated: false,
+        user: null,
+      },
+    });
+  };
+
   // Context data
-  const authContextData = { loginUser, registerUser, authState };
+  const authContextData = { loginUser, registerUser, logout, authState };
 
   return (
     <AuthContext.Provider value={authContextData}>

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
+import NavbarMenu from './NavbarMenu';
 
 // context
 import { AuthContext } from '../contexts/AuthContext';
@@ -23,7 +24,10 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) =>
         isAuthenticated ? (
-          <Component {...rest} {...props} />
+          <>
+            <NavbarMenu />
+            <Component {...rest} {...props} />
+          </>
         ) : (
           <Redirect to='/login' />
         )

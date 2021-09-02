@@ -4,6 +4,8 @@ const app = express();
 app.use(express.json());
 const PORT = 5000;
 
+const cors = require('cors');
+
 const authRouter = require('./routers/auth');
 const postRouter = require('./routers/post');
 
@@ -21,6 +23,7 @@ const connectDB = async () => {
 };
 connectDB();
 
+app.use(cors());
 app.use('/api/auth', authRouter);
 app.use('/api/posts', postRouter);
 
